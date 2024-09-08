@@ -18,4 +18,6 @@ pub trait LLMClientTrait<C: LLMClientConfig> {
 pub struct MyLLMClient {
     pub mock_client: Option<MockLLMClient>,
     pub chatgpt_client: Option<ChatGPTClient>,
+    // TODO: add Gemini client
+    pub gemini_client: Option<MockLLMClient>,
 }

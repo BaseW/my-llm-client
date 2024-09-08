@@ -1,10 +1,10 @@
 use clap::{Parser, Subcommand};
-use my_llm_client::llm_client::MyLLMClient;
+use my_llm_client::{llm_client::MyLLMClient, LLMProvider};
 
 #[derive(Parser)]
 struct Cli {
     #[arg(short, long)]
-    provider: Provider,
+    provider: LLMProvider,
     #[command(subcommand)]
     cmd: Command,
 }
@@ -14,35 +14,10 @@ enum Command {
     Chat,
 }
 
-#[derive(Clone)]
-enum Provider {
-    Mock,
-    ChatGPT,
-}
-
-impl From<&str> for Provider {
-    fn from(s: &str) -> Self {
-        match s {
-            "mock" => Provider::Mock,
-            "chatgpt" => Provider::ChatGPT,
-            _ => panic!("Invalid provider"),
-        }
-    }
-}
-
 #[tokio::main]
 async fn main() {
     let cli = Cli::parse();
-    match cli.provider {
-        Provider::Mock => {
-            let llm_client = MyLLMClient::new(true);
-            let message = llm_client.chat("こんにちは").await;
-            println!("{}", message);
-        }
-        Provider::ChatGPT => {
-            let llm_client = MyLLMClient::new(false);
-            let message = llm_client.chat("こんにちは").await;
-            println!("{}", message);
-        }
-    }
+    let llm_client = MyLLMClient::new(cli.provider);
+    let message = llm_client.chat("こんにちは").await;
+    println!("{}", message);
 }
