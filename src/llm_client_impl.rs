@@ -1,4 +1,4 @@
-use crate::llm_client::MyLLMClient;
+use crate::llm_client::{LLMClientTrait, MyLLMClient};
 use crate::mock_client::mock_client::MockLLMClient;
 
 impl MyLLMClient {

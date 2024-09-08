@@ -1,11 +1,12 @@
 use super::mock_client::MockLLMClient;
+use crate::llm_client::LLMClientTrait;
 
-impl MockLLMClient {
-    pub fn new() -> MockLLMClient {
+impl LLMClientTrait for MockLLMClient {
+    fn new() -> MockLLMClient {
         MockLLMClient { id: 1 }
     }
 
-    pub fn chat(&self, message: &str) -> String {
+    fn chat(&self, message: &str) -> String {
         format!("Mock response to '{}'", message)
     }
 }
