@@ -1,4 +1,5 @@
 pub mod chatgpt_client;
+pub mod gemini_client;
 pub mod llm_client;
 pub mod llm_client_impl;
 pub mod mock_client;
